@@ -4,6 +4,7 @@ import Home from "../views/Home.vue";
 
 Vue.use(VueRouter);
 
+// tslint:disable-next-line:typedef
 const routes = [
   {
     path: "/",
@@ -21,6 +22,7 @@ const routes = [
   }
 ];
 
+// tslint:disable-next-line:typedef
 const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
