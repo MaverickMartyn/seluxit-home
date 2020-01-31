@@ -2,7 +2,7 @@
   <v-app id="inspire">
     <v-navigation-drawer v-model="drawer" app>
       <v-list dense>
-        <v-list-item link>
+        <v-list-item link to="/">
           <v-list-item-action>
             <v-icon>mdi-home</v-icon>
           </v-list-item-action>
@@ -10,7 +10,23 @@
             <v-list-item-title>My Home</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-        <v-list-item link>
+        <v-list-item link to="/values">
+          <v-list-item-action>
+            <v-icon>mdi-view-dashboard</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>My Home</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item link to="/wstest">
+          <v-list-item-action>
+            <v-icon>mdi-home</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>Websocket Test</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item link to="/about">
           <v-list-item-action>
             <v-icon>mdi-help-circle</v-icon>
           </v-list-item-action>
@@ -38,23 +54,73 @@
 <script lang="ts">
 import Vue from "vue";
 import axios from "axios";
+import { Network } from "@/APITypes";
 
 export default Vue.extend({
   name: "App",
 
-  components: {
-  },
+  components: {},
 
   data: () => ({
     drawer: null,
-    networkId: "8c70e49c-48bd-4ec1-ad2b-725bdc4477a0"
+    message: "",
+    status: "disconnected",
+    socket: null as WebSocket | null
   }),
 
   // tslint:disable-next-line:typedef
-  mounted () {
+  mounted() {
     axios
-      .get("https://www.seluxit.com/smarthome/services/2.0/network/" + this.networkId)
-      .then(response => (this.info = response))
+      .get(
+        "https://www.seluxit.com/smarthome/services/2.0/network/" +
+          this.$store.state.networkId
+      )
+      .then(response => {
+        var network: Network = response.data as Network;
+        this.$store.commit("updateNetwork", network);
+      });
+    this.connect();
+  },
+
+  methods: {
+    connect(): void {
+      this.socket = new WebSocket(
+        "wss://www.seluxit.com/smarthome/services/2.0/network/" +
+          this.$store.state.networkId +
+          "/websocket"
+      );
+      this.socket.onopen = () => {
+        this.status = "connected";
+        // eslint-disable-next-line no-console
+        console.log({
+          event: "Connected to",
+          data:
+            "wss://www.seluxit.com/smarthome/services/2.0/network/" +
+            this.$store.state.networkId +
+            "/websocket"
+        });
+
+        this.socket!.onmessage = ({ data }) => {
+          data = JSON.parse(data);
+          // eslint-disable-next-line no-console
+          console.log({
+            event: "Recieved message",
+            data
+          });
+          if (data.meta.type === "state") {
+            this.$store.commit("updateDeviceState", data);
+          }
+        };
+      };
+    },
+    disconnect(): void {
+      this.socket!.close();
+      this.status = "disconnected";
+    },
+    sendMessage(e: Object): void {
+      this.socket!.send(this.message);
+      this.message = "";
+    }
   }
 });
 </script>
