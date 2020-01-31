@@ -1,20 +1,20 @@
 export class Network {
-    name: string;
-    meta: Meta;
+    name!: string;
+    meta!: Meta;
     device?: (Device)[] | null;
   }
   export class Meta {
-    type: string;
-    version: string;
-    id: string;
+    type!: string;
+    version!: string;
+    id!: string;
   }
   export class Device {
-    name: string;
-    manufacturer: string;
-    version: string;
+    name!: string;
+    manufacturer!: string;
+    version!: string;
     description?: string | null;
-    included: string;
-    meta: Meta;
+    included!: string;
+    meta!: Meta;
     status?: (null)[] | null;
     value?: (ValueEntity)[] | null;
     product?: string | null;
@@ -33,21 +33,20 @@ export class Network {
     deviceId?: string | null;
   }
   export class NumberEntity {
-    unit: string;
-    step: number;
-    min: number;
-    max: number;
+    unit!: string;
+    step!: number;
+    min!: number;
+    max!: number;
   }
   export class StateEntity {
-    timestamp: string;
-    data: string;
-    status_payment: string;
-    type: string;
-    status: string;
-    meta: Meta;
+    timestamp!: string;
+    data!: string;
+    status_payment!: string;
+    type!: string;
+    status!: string;
+    meta!: Meta;
   }
   export class String {
-    max: number;
-    encoding: string;
+    max!: number;
+    encoding!: string;
   }
-  
