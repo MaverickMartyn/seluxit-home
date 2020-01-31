@@ -30,6 +30,7 @@ export class Network {
     meta?: Meta | null;
     state?: (StateEntity)[] | null;
     string?: String | null;
+    deviceId?: string | null;
   }
   export class NumberEntity {
     unit: string;

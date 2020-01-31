@@ -7,7 +7,7 @@
             <v-icon>mdi-home</v-icon>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title>My Home</v-list-item-title>
+            <v-list-item-title>My Devices</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
         <v-list-item link to="/values">
@@ -15,7 +15,7 @@
             <v-icon>mdi-view-dashboard</v-icon>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title>My Home</v-list-item-title>
+            <v-list-item-title>State Overview</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
         <v-list-item link to="/wstest">
