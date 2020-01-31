@@ -128,7 +128,7 @@ export default Vue.extend({
           "/state/" +
           this.controlState!.meta.id,
         {
-          timestamp: Date.now.toString(),
+          timestamp: Date.now().toString(),
           data: value,
           meta: { id: this.controlState!.meta.id }
         },

@@ -1,7 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import MyHome from "../views/MyHome.vue";
-import ValueDashboard from "../views/ValueDashboard.vue";
 
 Vue.use(VueRouter);
 
@@ -15,7 +14,8 @@ const routes = [
   {
     path: "/values",
     name: "valuedashboard",
-    component: ValueDashboard
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/ValueDashboard.vue")
   },
   {
     path: "/wstest",
