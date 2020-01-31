@@ -99,19 +99,8 @@ export default Vue.extend({
   },
 
   methods: {
-    barInnerStyle(value: ValueEntity): Object {
-      // eslint-disable-next-line no-console
-      console.log(value);
-      var state: StateEntity | null | undefined = value!.state!.find(
-        x => x.type === "Report"
-      );
-      var style: Object = {
-        backgroundColor: "#FF0000",
-        top: (Number(state!.data) / value!.number!.max) * 100
-      };
-      // eslint-disable-next-line no-console
-      console.log(style);
-      return style;
+    example(value: ValueEntity): Object {
+      return {};
     }
   }
 });

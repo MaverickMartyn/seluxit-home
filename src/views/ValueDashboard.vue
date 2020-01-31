@@ -1,6 +1,6 @@
 <template>
   <v-container fluid>
-    <v-flex style="display: flex; flex-direction: row; flex-wrap: wrap;">
+    <v-flex class="home-flex-wrap">
       <value-widget
         v-for="valueEntity in valueEntities"
         :valueEntity="valueEntity"

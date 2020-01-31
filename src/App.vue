@@ -51,6 +51,14 @@
   </v-app>
 </template>
 
+<style lang="scss">
+.home-flex-wrap {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+</style>
+
 <script lang="ts">
 import Vue from "vue";
 import axios from "axios";
@@ -68,8 +76,7 @@ export default Vue.extend({
     socket: null as WebSocket | null
   }),
 
-  // tslint:disable-next-line:typedef
-  mounted() {
+  mounted(): void {
     axios
       .get(
         "https://www.seluxit.com/smarthome/services/2.0/network/" +

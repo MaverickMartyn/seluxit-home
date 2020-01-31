@@ -52,9 +52,6 @@
           @change="updateState"
           label="On/Off"
         ></v-switch>
-        <!-- <v-btn text color="deep-purple accent-4">
-          Manage
-        </v-btn> -->
       </v-card-actions>
     </v-card>
   </div>
@@ -93,7 +90,6 @@ export default Vue.extend({
         x => x.type === "Report"
       );
       return state;
-      //   return this!.valueEntityData!.state || new Array();
     },
     hasControlState: function(): boolean {
       return this.controlState !== null;
@@ -116,8 +112,6 @@ export default Vue.extend({
 
   methods: {
     updateState(value: Event): void {
-      // eslint-disable-next-line no-console
-      console.log(value);
       axios.post(
         "https://www.seluxit.com/smarthome/services/2.0/network/" +
           this.$store.state.networkId +

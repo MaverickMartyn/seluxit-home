@@ -20,9 +20,6 @@ const routes = [
   {
     path: "/wstest",
     name: "wstest",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/WebsocketTest.vue")
   },
@@ -37,8 +34,7 @@ const routes = [
   }
 ];
 
-// tslint:disable-next-line:typedef
-const router = new VueRouter({
+const router: VueRouter = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
   routes

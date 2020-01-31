@@ -1,6 +1,6 @@
 <template>
-  <div class="col-md-6">
-    <v-card>
+  <div class="col-md-6 d-flex">
+    <v-card style="width: 100%;">
       <v-card-text>
         <div>{{ deviceData.manufacturer }}</div>
         <p class="display-1 text--primary">
@@ -102,8 +102,6 @@ export default Vue.extend({
       );
     },
     updateState(value: Event, valueEntity: ValueEntity): void {
-      // eslint-disable-next-line no-console
-      console.log(value);
       axios.post(
         "https://www.seluxit.com/smarthome/services/2.0/network/" +
           this.$store.state.networkId +
