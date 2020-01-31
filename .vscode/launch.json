@@ -11,8 +11,11 @@
             "url": "http://localhost:8080",
             "webRoot": "${workspaceFolder}/src",
             "breakOnLoad": true,
+            "disableNetworkCache": true,
             "sourceMapPathOverrides": {
-                "webpack:///./src/*": "${webRoot}/*"
+                "webpack:///./src/*": "${webRoot}/*",
+                "webpack:///./*": "${webRoot}/*",
+                "webpack:///src/*": "${webRoot}/src/*"
             }
         }
     ]
