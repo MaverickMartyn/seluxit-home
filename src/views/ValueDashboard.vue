@@ -23,7 +23,7 @@ export default {
   },
 
   data: () => ({
-    hiddenWidgetTypes: ["color", "brightness"],
+    hiddenWidgetTypes: ["color", "brightness"]
   }),
 
   computed: {
@@ -33,20 +33,23 @@ export default {
           Array.prototype.concat.apply(
             [],
             this.$store.state.network.device!.map((d: Device) => {
-                var values: ValueEntity[] = d.value || [];
-                values.forEach(element => {
-                    element.deviceId = d.meta.id;
-                });
-                return d.value;
+              var values: ValueEntity[] = d.value || [];
+              values.forEach(element => {
+                element.deviceId = d.meta.id;
+              });
+              return d.value;
             })
           )) ||
         new Array<ValueEntity>()
-      ).filter((x: ValueEntity) => x.type === "on_off"
-      || (this.hiddenWidgetTypes.indexOf(x.type || "") < 0 && x.state!.filter((s: StateEntity) => s.type === "Report").length > 0));
+      ).filter(
+        (x: ValueEntity) =>
+          x.type === "on_off" ||
+          (this.hiddenWidgetTypes.indexOf(x.type || "") < 0 &&
+            x.state!.filter((s: StateEntity) => s.type === "Report").length > 0)
+      );
     }
   },
 
-  methods: {
-  }
+  methods: {}
 };
 </script>

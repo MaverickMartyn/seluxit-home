@@ -7,7 +7,9 @@
     style="position: relative;"
   >
     <div class="bar-inner" :style="barInnerStyle"></div>
-    <span class="bar-inner-text">{{ value.state.find(x => x.type == "Report").data + " " + value.number.unit }}</span>
+    <span class="bar-inner-text">{{
+      value.state.find(x => x.type == "Report").data + " " + value.number.unit
+    }}</span>
   </v-sheet>
 </template>
 
@@ -47,16 +49,14 @@ export default Vue.extend({
       );
       var style: Object = {
         backgroundColor: "#3f51b5",
-        top: (100-(Number(state!.data) / this.value!.number!.max) * 100) + "%"
+        top: 100 - (Number(state!.data) / this.value!.number!.max) * 100 + "%"
       };
       return style;
     }
   },
 
-  data: () => ({
-  }),
+  data: () => ({}),
 
-  methods: {
-  }
+  methods: {}
 });
 </script>

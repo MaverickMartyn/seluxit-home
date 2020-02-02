@@ -7,17 +7,26 @@
           {{ this.valueEntityData.name }}
         </p>
 
-        <p v-if="this.valueEntityData.type === 'on_off'" class="headline text--primary">
-            {{ ((state || controlState).data > 0) ? 'On' : 'Off' }}
+        <p
+          v-if="this.valueEntityData.type === 'on_off'"
+          class="headline text--primary"
+        >
+          {{ (state || controlState).data > 0 ? "On" : "Off" }}
         </p>
 
-        <p v-if="this.valueEntityData.type !== 'on_off'" class="headline text--primary">
+        <p
+          v-if="this.valueEntityData.type !== 'on_off'"
+          class="headline text--primary"
+        >
           {{
             (this.state || this.controlState) &&
               (this.state || this.controlState).data
           }}{{
             this.valueEntityData.type === "temperature"
               ? "&deg;"
+              : this.valueEntityData.number &&
+                this.valueEntityData.number.unit === "%"
+              ? "%"
               : this.valueEntityData.number &&
                 " " + this.valueEntityData.number.unit
           }}
