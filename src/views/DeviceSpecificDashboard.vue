@@ -45,7 +45,7 @@ interface IWidget extends GridItemData {
 }
 
 export default {
-  name: "ValueDashboard",
+  name: "DeviceSpecificDashboard",
   components: {
     IndoorModule,
     GridLayout,

@@ -46,7 +46,7 @@ export class LogEntry {
 }
 
 export default {
-  name: "MyHome",
+  name: "WebsocketTest",
   components: {},
 
   data: () => ({

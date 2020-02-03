@@ -18,7 +18,7 @@ import { Device, ValueEntity, StateEntity } from "@/APITypes";
 import axios from "axios";
 
 export default {
-  name: "ValueDashboard",
+  name: "GenericValueOverview",
   components: {
     ValueWidget
   },

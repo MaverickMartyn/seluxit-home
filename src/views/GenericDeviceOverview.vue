@@ -18,7 +18,7 @@ import { Device, ValueEntity } from "@/APITypes";
 import axios from "axios";
 
 export default {
-  name: "MyHome",
+  name: "GenericDeviceOverview",
   components: {
     DeviceCard
   },
