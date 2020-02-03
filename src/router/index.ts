@@ -1,6 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import MyHome from "../views/MyHome.vue";
+import DeviceSpecificDashboard from "../views/DeviceSpecificDashboard.vue";
 
 Vue.use(VueRouter);
 
@@ -8,26 +8,32 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: "/",
-    name: "myhome",
-    component: MyHome
+    name: "dashboard",
+    component: DeviceSpecificDashboard
+  },
+  {
+    path: "/devices",
+    name: "deviceoverview",
+    component: () =>
+      import(
+        /* webpackChunkName: "generic-device-overview" */ "../views/GenericDeviceOverview.vue"
+      )
   },
   {
     path: "/values",
-    name: "valuedashboard",
+    name: "valueoverview",
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/ValueDashboard.vue")
-  },
-  {
-    path: "/dashboard",
-    name: "dashboard",
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/DeviceSpecific.vue")
+      import(
+        /* webpackChunkName: "generic-value-overview" */ "../views/GenericValueOverview.vue"
+      )
   },
   {
     path: "/wstest",
     name: "wstest",
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/WebsocketTest.vue")
+      import(
+        /* webpackChunkName: "websocket-test" */ "../views/WebsocketTest.vue"
+      )
   },
   {
     path: "/about",

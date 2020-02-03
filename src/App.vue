@@ -4,10 +4,18 @@
       <v-list dense>
         <v-list-item link to="/">
           <v-list-item-action>
+            <v-icon>mdi-view-dashboard</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>Device Specific Dashboard</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item link to="/devices">
+          <v-list-item-action>
             <v-icon>mdi-home</v-icon>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title>Generic Device Dashboard</v-list-item-title>
+            <v-list-item-title>Generic Device Overview</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
         <v-list-item link to="/values">
@@ -15,23 +23,7 @@
             <v-icon>mdi-view-dashboard</v-icon>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title>Generic State Overview</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-        <v-list-item link to="/dashboard">
-          <v-list-item-action>
-            <v-icon>mdi-view-dashboard</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title>Device Specific Dashboard</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-        <v-list-item link to="/wstest">
-          <v-list-item-action>
-            <v-icon>mdi-home</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title>Websocket Test</v-list-item-title>
+            <v-list-item-title>Generic Value Overview</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
         <v-list-item link to="/about">
