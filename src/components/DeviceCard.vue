@@ -98,7 +98,7 @@ export default Vue.extend({
 
   props: {
     device: {
-      type: Object // not typed yet, due to difficulties with parser.
+      type: Device
     }
   },
 

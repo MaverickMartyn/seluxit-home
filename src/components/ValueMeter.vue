@@ -38,7 +38,7 @@ export default Vue.extend({
 
   props: {
     value: {
-      type: Object // not typed yet, due to difficulties with parser.
+      type: ValueEntity
     }
   },
 
