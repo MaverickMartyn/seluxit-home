@@ -29,7 +29,5 @@ yarn run lint
 ### Recommended Tools/Editors
 Microsoft Visual Studio Code
 - Vetur (Extension for Vue support)
-- Typescript
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+- Latest Typescript version (Might auto install from dependencies).
+A package manager (Yarn or NPM)
