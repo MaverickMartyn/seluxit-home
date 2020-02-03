@@ -40,7 +40,9 @@
       <v-list-item-subtitle
         >CO2:
         {{ co2Value.state.find(s => s.type === "Report").data }}
-        PPM</v-list-item-subtitle
+        PPM<span v-if="!!alarmText" class="d-block red--text">{{
+          alarmText
+        }}</span></v-list-item-subtitle
       >
     </v-list-item>
 
@@ -108,6 +110,17 @@ export default Vue.extend({
       return (
         this.deviceData.value!.find((v: ValueEntity) => v.type === "co2") ||
         null
+      );
+    },
+    alarmValue: function(): ValueEntity | null {
+      return (
+        this.deviceData.value!.find((v: ValueEntity) => v.type === "message") ||
+        null
+      );
+    },
+    alarmText: function(): string | null {
+      return (
+        this.alarmValue!.state!.find(s => s.type === "Report")!.data || null
       );
     },
     pressureValue: function(): ValueEntity | null {
