@@ -22,6 +22,7 @@
       <component
         :is="getComponentByDevice(widget.device)"
         :device="widget.device"
+        @update-state="updateState"
       ></component>
     </grid-item>
   </grid-layout>
@@ -83,6 +84,9 @@ export default {
   },
 
   methods: {
+    updateState(value: Event, device: Device, valueEntity: ValueEntity): void {
+      this.$emit("update-state", value, device, valueEntity);
+    },
     getComponentByDevice: function(device: Device): Component {
       var spec: IDeviceSpec | undefined = DeviceWidgetSpecs.devices.find(
         obj => {

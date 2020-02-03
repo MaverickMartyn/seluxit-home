@@ -155,29 +155,7 @@ export default Vue.extend({
       return {};
     },
     updateState(value: Event, valueEntity: ValueEntity): void {
-      axios.post(
-        "https://www.seluxit.com/smarthome/services/2.0/network/" +
-          this.$store.state.networkId +
-          "/device/" +
-          this.deviceData.meta.id +
-          "/value/" +
-          valueEntity!.meta!.id +
-          "/state/" +
-          valueEntity.state!.find(s => s.type === "Control")!.meta.id,
-        {
-          timestamp: Date.now().toString(),
-          data: value,
-          meta: {
-            id: valueEntity.state!.find(s => s.type === "Control")!.meta.id
-          }
-        },
-        {
-          withCredentials: true,
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded"
-          }
-        }
-      );
+      this.$emit("update-state", value, this.deviceData, valueEntity);
     }
   }
 });

@@ -5,6 +5,7 @@
         v-for="device in devices"
         :device="device"
         :key="device.id"
+        @update-state="updateState"
       ></device-card>
     </v-flex>
   </v-container>
@@ -13,7 +14,7 @@
 <script lang="ts">
 // @ is an alias to /src
 import DeviceCard from "@/components/DeviceCard.vue";
-import { Device } from "@/APITypes";
+import { Device, ValueEntity } from "@/APITypes";
 import axios from "axios";
 
 export default {
@@ -28,6 +29,11 @@ export default {
         (this.$store.state.network && this.$store.state.network.device) ||
         new Array<Device>()
       );
+    }
+  },
+  methods: {
+    updateState(value: Event, device: Device, valueEntity: ValueEntity): void {
+      this.$emit("update-state", value, device, valueEntity);
     }
   }
 };

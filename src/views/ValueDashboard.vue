@@ -5,6 +5,7 @@
         v-for="valueEntity in valueEntities"
         :valueEntity="valueEntity"
         :key="valueEntity.id"
+        @update-state="updateState"
       ></value-widget>
     </v-flex>
   </v-container>
@@ -50,6 +51,10 @@ export default {
     }
   },
 
-  methods: {}
+  methods: {
+    updateState(value: Event, device: Device, valueEntity: ValueEntity): void {
+      this.$emit("update-state", value, device, valueEntity);
+    }
+  }
 };
 </script>

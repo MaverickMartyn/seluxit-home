@@ -51,7 +51,7 @@
     </v-app-bar>
 
     <v-content>
-      <router-view></router-view>
+      <router-view @update-state="updateState"></router-view>
     </v-content>
     <v-footer color="indigo" app>
       <span class="white--text">&copy; 2019</span>
@@ -70,7 +70,7 @@
 <script lang="ts">
 import Vue from "vue";
 import axios from "axios";
-import { Network } from "@/APITypes";
+import { Network, StateEntity, Device, ValueEntity } from "@/APITypes";
 
 export default Vue.extend({
   name: "App",
@@ -98,6 +98,31 @@ export default Vue.extend({
   },
 
   methods: {
+    updateState(value: Event, device: Device, valueEntity: ValueEntity): void {
+      axios.post(
+        "https://www.seluxit.com/smarthome/services/2.0/network/" +
+          this.$store.state.networkId +
+          "/device/" +
+          device.meta.id +
+          "/value/" +
+          valueEntity!.meta!.id +
+          "/state/" +
+          valueEntity.state!.find(s => s.type === "Control")!.meta.id,
+        {
+          timestamp: Date.now().toString(),
+          data: value,
+          meta: {
+            id: valueEntity.state!.find(s => s.type === "Control")!.meta.id
+          }
+        },
+        {
+          withCredentials: true,
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+          }
+        }
+      );
+    },
     connect(): void {
       this.socket = new WebSocket(
         "wss://www.seluxit.com/smarthome/services/2.0/network/" +
