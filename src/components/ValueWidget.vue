@@ -34,7 +34,7 @@
       </v-card-text>
       <v-card-actions v-if="hasControlState">
         <v-slider
-          v-if="!!valueEntityData.number && !isBooleanControlValue"
+          v-if="!!valueEntityData.number && !isBooleanValue"
           :min="valueEntityData.number.min"
           :max="valueEntityData.number.max"
           :step="valueEntityData.number.step"
@@ -56,7 +56,7 @@
           lg
           true-value="1"
           false-value="0"
-          v-if="isBooleanControlValue"
+          v-if="isBooleanValue"
           v-model="(state || controlState).data"
           @change="updateState"
           label="On/Off"
@@ -110,7 +110,7 @@ export default Vue.extend({
         ) || null
       );
     },
-    isBooleanControlValue: function(): boolean {
+    isBooleanValue: function(): boolean {
       return (
         this.valueEntityData!.number!.min === 0 &&
         this.valueEntityData!.number!.step === 1 &&

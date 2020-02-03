@@ -19,9 +19,21 @@ export default new Vuex.Store<AppState>({
     networkId: "8c70e49c-48bd-4ec1-ad2b-725bdc4477a0"
   }),
   mutations: {
+    /**
+     * Updates the vuex state representation of the network.
+     *
+     * @param state The vuex app state.
+     * @param network The network object.
+     */
     updateNetwork(state: AppState, network: Network): void {
       state.network = network;
     },
+    /**
+     * Updates the vuex state representation of a particular device value.
+     *
+     * @param state The vuex app state.
+     * @param value The value entity.
+     */
     updateDeviceState(state: AppState, stateEntity: StateEntity): void {
       state!.network!.device!.forEach((deviceEl: Device, deviceKey: number) => {
         deviceEl!.value!.forEach((valEl, valKey) => {

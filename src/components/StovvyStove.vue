@@ -169,8 +169,16 @@ export default Vue.extend({
   },
 
   methods: {
-    controlStateByValue(value: ValueEntity): StateEntity | undefined {
-      return value!.state!.find(x => x.type === "Control");
+    /**
+     * Returns the state of type "Control" belonging to a given value, if one exists.
+     *
+     * @remarks
+     * Only values allowing manipulation have a Control state.
+     * @param value The value entity.
+     * @returns A state entity to manipulate the value, or null if none exists.
+     */
+    controlStateByValue(value: ValueEntity): StateEntity | null {
+      return value!.state!.find(x => x.type === "Control") || null;
     },
     updateState(value: Event, valueEntity: ValueEntity): void {
       this.$emit("update-state", value, this.deviceData, valueEntity);

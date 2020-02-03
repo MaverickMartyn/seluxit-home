@@ -40,7 +40,7 @@
                   </td>
                   <td v-if="hasControlState(value)">
                     <v-slider
-                      v-if="!!value.number && !isBooleanControlValue(value)"
+                      v-if="!!value.number && !isBooleanValue(value)"
                       :min="value.number.min"
                       :max="value.number.max"
                       :step="value.number.step"
@@ -67,7 +67,7 @@
                       lg
                       true-value="1"
                       false-value="0"
-                      v-if="isBooleanControlValue(value)"
+                      v-if="isBooleanValue(value)"
                       v-model="
                         (value.state.find(x => x.type === 'Control') || {}).data
                       "
@@ -109,13 +109,35 @@ export default Vue.extend({
   },
 
   methods: {
+    /**
+     * Indicates whether a given value entity has a state of the type "Control".
+     *
+     * @remarks
+     * Only values allowing manipulation have a Control state.
+     * @param value The value entity.
+     * @returns A boolean indicating whether the value has a Control state.
+     */
     hasControlState(value: ValueEntity): boolean {
       return value.state!.find(x => x.type === "Control") !== undefined;
     },
-    controlStateByValue(value: ValueEntity): StateEntity | undefined {
-      return value!.state!.find(x => x.type === "Control");
+    /**
+     * Returns the state of type "Control" belonging to a given value, if one exists.
+     *
+     * @remarks
+     * Only values allowing manipulation have a Control state.
+     * @param value The value entity.
+     * @returns A state entity to manipulate the value, or null if none exists.
+     */
+    controlStateByValue(value: ValueEntity): StateEntity | null {
+      return value!.state!.find(x => x.type === "Control") || null;
     },
-    isBooleanControlValue(value: ValueEntity): boolean {
+    /**
+     * Indicates whether a given value entity has number data with a binary range.
+     *
+     * @param value The value entity.
+     * @returns A boolean indicating whether the value is boolean.
+     */
+    isBooleanValue(value: ValueEntity): boolean {
       return (
         value!.number! &&
         value!.number!.min === 0 &&

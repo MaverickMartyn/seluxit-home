@@ -77,6 +77,7 @@ export default Vue.extend({
   }),
 
   mounted(): void {
+    // updates the network instance and connects to the websocket.
     axios
       .get(
         "https://www.seluxit.com/smarthome/services/2.0/network/" +
@@ -90,7 +91,13 @@ export default Vue.extend({
   },
 
   methods: {
-    updateState(value: Event, device: Device, valueEntity: ValueEntity): void {
+    /**
+     * Updates the state of a device value by calling the appropriate API.
+     * @param value The new value of the state.
+     * @param device The Device to be updated.
+     * @param valueEntity The value entity to be updated.
+     */
+    updateState(value: string, device: Device, valueEntity: ValueEntity): void {
       axios.post(
         "https://www.seluxit.com/smarthome/services/2.0/network/" +
           this.$store.state.networkId +
@@ -115,6 +122,9 @@ export default Vue.extend({
         }
       );
     },
+    /**
+     * Connects to the websocket.
+     */
     connect(): void {
       this.socket = new WebSocket(
         "wss://www.seluxit.com/smarthome/services/2.0/network/" +
@@ -145,13 +155,12 @@ export default Vue.extend({
         };
       };
     },
+    /**
+     * Disconnects from the websocket.
+     */
     disconnect(): void {
       this.socket!.close();
       this.status = "disconnected";
-    },
-    sendMessage(e: Object): void {
-      this.socket!.send(this.message);
-      this.message = "";
     }
   }
 });

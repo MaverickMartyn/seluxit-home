@@ -24,10 +24,19 @@ export default {
   },
 
   data: () => ({
+    // value types that should not be displayed.
     hiddenWidgetTypes: ["color", "brightness"]
   }),
 
   computed: {
+    /**
+     * Get filtered array of value entities and their devices.
+     *
+     * @remarks
+     * The array is filtered to not contain value types listed in hiddenWidgetTypes or any values without "Report" states.
+     *
+     * @returns An array of value entities to be displayed, along with their respective devices.
+     */
     valueEntities: function(): ValueEntity[] {
       return (
         (this.$store.state.network &&

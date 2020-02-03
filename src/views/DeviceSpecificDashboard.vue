@@ -73,6 +73,7 @@ export default {
     devices: function(val: Device[]): void {
       this.loadDeviceWidgets();
     },
+    // updates localStorage when widgets are repositioned or resized.
     widgets: function(val: IWidget[]): void {
       var newVal: IWidget[] = JSON.parse(JSON.stringify(val));
       newVal.forEach((w: IWidget) => {
@@ -87,6 +88,14 @@ export default {
     updateState(value: Event, device: Device, valueEntity: ValueEntity): void {
       this.$emit("update-state", value, device, valueEntity);
     },
+    /**
+     * Returns the component to use for a given device.
+     *
+     * @remarks
+     * Device and component mappings can be found in DeviceWidgetSpecs.ts
+     * @param device The device.
+     * @returns A vue component to display and/or manipulate the device data.
+     */
     getComponentByDevice: function(device: Device): Component {
       var spec: IDeviceSpec | undefined = DeviceWidgetSpecs.devices.find(
         obj => {
@@ -100,9 +109,21 @@ export default {
       );
       return spec !== undefined ? spec!.component : IndoorModule;
     },
+    /**
+     * Get a device by its meta id.
+     *
+     * @param deviceId The id.
+     * @returns The device if found, otherwise null.
+     */
     getDeviceById: function(deviceId: string): Device | null {
       return this.devices.find((d: Device) => d.meta.id === deviceId) || null;
     },
+    /**
+     * Load all widgets with their respective devices attached, into this.widgets.
+     *
+     * @remarks
+     * All widget objects have their device attached in a field for easy access in child components.
+     */
     loadDeviceWidgets: function(): void {
       var x: number = 0;
       var y: number = 0;

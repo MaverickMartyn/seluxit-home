@@ -8,6 +8,9 @@ export interface IDeviceSpec {
   component: Component;
 }
 
+/**
+ * Specifies devices and their respective display components.
+ */
 export default {
   devices: [
     {

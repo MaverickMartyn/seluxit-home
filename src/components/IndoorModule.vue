@@ -148,12 +148,6 @@ export default Vue.extend({
         return null;
       }
     }
-  },
-
-  methods: {
-    example(value: ValueEntity): Object {
-      return {};
-    }
   }
 });
 </script>

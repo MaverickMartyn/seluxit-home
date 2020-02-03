@@ -39,6 +39,7 @@
 
 <script lang="ts">
 import Vue from "vue";
+// note: This file was used only for testing.
 
 export class LogEntry {
   event: string = "";
