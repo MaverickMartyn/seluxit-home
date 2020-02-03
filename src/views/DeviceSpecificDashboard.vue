@@ -17,16 +17,25 @@
       v-bind.sync="widget"
       :key="widget.deviceId"
       ignoreDragFrom="*"
-      drag-allow-from=".v-card > .v-list-item"
+      drag-allow-from=".drag-handle"
     >
       <component
         :is="getComponentByDevice(widget.device)"
         :device="widget.device"
         @update-state="updateState"
       ></component>
+      <v-icon large class="drag-handle">mdi-drag</v-icon>
     </grid-item>
   </grid-layout>
 </template>
+
+<style lang="scss">
+.drag-handle {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+</style>
 
 <script lang="ts">
 // @ is an alias to /src
