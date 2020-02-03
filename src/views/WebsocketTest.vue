@@ -6,22 +6,29 @@
         <v-btn @click="disconnect" v-if="status === 'connected'">
           Disconnect
         </v-btn>
-        <v-btn color="primary" @click="connect" v-if="status === 'disconnected'">
+        <v-btn
+          color="primary"
+          @click="connect"
+          v-if="status === 'disconnected'"
+        >
           Connect
         </v-btn>
         <p>Status: {{ status }}</p>
         <div v-if="status === 'connected'">
           <v-form @submit.prevent="sendMessage" action="#">
-            <v-text-field label="Send a message to the websocket" v-model="message"></v-text-field>
+            <v-text-field
+              label="Send a message to the websocket"
+              v-model="message"
+            ></v-text-field>
             <v-btn type="submit">
               Send Message
             </v-btn>
           </v-form>
           <v-sheet elevation="3" class="pa-5">
             <ul id="logs">
-                <li v-for="log in logs" class="log" :key="log.id">
+              <li v-for="log in logs" class="log" :key="log.id">
                 {{ log.event }}: {{ log.data }}
-                </li>
+              </li>
             </ul>
           </v-sheet>
         </div>

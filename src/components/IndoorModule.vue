@@ -24,7 +24,11 @@
     <v-card-text>
       <v-row align="center">
         <v-col class="display-3" cols="12">
-          {{ Number(temperatureValue.state.find(s => s.type === "Report").data).toFixed(2) }}&deg;C
+          {{
+            Number(
+              temperatureValue.state.find(s => s.type === "Report").data
+            ).toFixed(2)
+          }}&deg;C
         </v-col>
       </v-row>
     </v-card-text>
@@ -33,14 +37,26 @@
       <v-list-item-icon>
         <v-icon>mdi-send</v-icon>
       </v-list-item-icon>
-      <v-list-item-subtitle>CO2: {{ co2Value.state.find(s => s.type === "Report").data }} PPM</v-list-item-subtitle>
+      <v-list-item-subtitle
+        >CO2:
+        {{ co2Value.state.find(s => s.type === "Report").data }}
+        PPM</v-list-item-subtitle
+      >
     </v-list-item>
 
     <v-list-item v-if="!!pressureValue">
       <v-list-item-icon>
         <v-icon>mdi-cloud-download</v-icon>
       </v-list-item-icon>
-      <v-list-item-subtitle>Pressure: {{ Number(pressureValue.state.find(s => s.type === "Report").data).toFixed(2) }} Pa</v-list-item-subtitle>
+      <v-list-item-subtitle
+        >Pressure:
+        {{
+          Number(
+            pressureValue.state.find(s => s.type === "Report").data
+          ).toFixed(2)
+        }}
+        Pa</v-list-item-subtitle
+      >
     </v-list-item>
 
     <v-slider
@@ -83,8 +99,9 @@ export default Vue.extend({
     },
     temperatureValue: function(): ValueEntity | null {
       return (
-        this.deviceData.value!.find((v: ValueEntity) => v.type === "temperature") ||
-        null
+        this.deviceData.value!.find(
+          (v: ValueEntity) => v.type === "temperature"
+        ) || null
       );
     },
     co2Value: function(): ValueEntity | null {
@@ -95,19 +112,25 @@ export default Vue.extend({
     },
     pressureValue: function(): ValueEntity | null {
       return (
-        this.deviceData!.value!.find((v: ValueEntity) => v.type === "pressure") ||
-        null
+        this.deviceData!.value!.find(
+          (v: ValueEntity) => v.type === "pressure"
+        ) || null
       );
     },
     humidityValue: function(): ValueEntity | null {
       return (
-        this.deviceData!.value!.find((v: ValueEntity) => v.type === "humidity") ||
-        null
+        this.deviceData!.value!.find(
+          (v: ValueEntity) => v.type === "humidity"
+        ) || null
       );
     },
     humidityModel: function(): string | null {
       if (this.humidityValue !== null) {
-        return Number(this.humidityValue!.state!.find(s => s.type === "Report")!.data)!.toFixed(2) || null;
+        return (
+          Number(
+            this.humidityValue!.state!.find(s => s.type === "Report")!.data
+          )!.toFixed(2) || null
+        );
       } else {
         return null;
       }

@@ -116,13 +116,24 @@ export default Vue.extend({
       return this.device;
     },
     temperatureValue: function(): ValueEntity | null {
-      return this.deviceData.value!.find(v => v.type === "temperature" && v.permission === "r") || null;
+      return (
+        this.deviceData.value!.find(
+          v => v.type === "temperature" && v.permission === "r"
+        ) || null
+      );
     },
     desiTemperatureValue: function(): ValueEntity | null {
-      return this.deviceData.value!.find(v => v.type === "temperature" && v.permission !== "r") || null;
+      return (
+        this.deviceData.value!.find(
+          v => v.type === "temperature" && v.permission !== "r"
+        ) || null
+      );
     },
     desiTemperatureState: function(): StateEntity | null {
-      return this.desiTemperatureValue!.state!.find(s => s.type === "Control") || null;
+      return (
+        this.desiTemperatureValue!.state!.find(s => s.type === "Control") ||
+        null
+      );
     },
     onOffValue: function(): ValueEntity | null {
       return (
@@ -156,7 +167,9 @@ export default Vue.extend({
         {
           timestamp: Date.now().toString(),
           data: value,
-          meta: { id: valueEntity.state!.find(s => s.type === "Control")!.meta.id }
+          meta: {
+            id: valueEntity.state!.find(s => s.type === "Control")!.meta.id
+          }
         },
         {
           withCredentials: true,
