@@ -72,7 +72,7 @@
       ticks
       readonly
       append-icon="mdi-percent"
-      :thumb-size="18"
+      :thumb-size="22"
       thumb-label="always"
     ></v-slider>
   </v-card>
