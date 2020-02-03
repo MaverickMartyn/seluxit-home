@@ -1,4 +1,12 @@
 import IndoorModule from "@/components/IndoorModule.vue";
+import StovvyStove from "@/components/StovvyStove.vue";
+import { Component } from "vue";
+
+export interface IDeviceSpec {
+  manufacturer: string;
+  name: string;
+  component: Component;
+}
 
 export default {
   devices: [
@@ -10,7 +18,7 @@ export default {
     {
       manufacturer: "Stovy",
       name: "Stove-2020",
-      component: IndoorModule
+      component: StovvyStove
     }
-  ]
+  ] as IDeviceSpec[]
 };

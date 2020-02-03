@@ -5,6 +5,7 @@
     height="100%"
     width="100%"
     style="overflow-y: auto;"
+    v-if="!!device"
   >
     <v-list-item two-line>
       <v-list-item-content>
@@ -25,13 +26,6 @@
         <v-col class="display-3" cols="12">
           {{ Number(temperatureValue.state.find(s => s.type === "Report").data).toFixed(2) }}&deg;C
         </v-col>
-        <!-- <v-col cols="6">
-          <v-img
-            src="https://cdn.vuetifyjs.com/images/cards/sun.png"
-            alt="Sunny image"
-            width="92"
-          ></v-img>
-        </v-col> -->
       </v-row>
     </v-card-text>
 
@@ -46,12 +40,12 @@
       <v-list-item-icon>
         <v-icon>mdi-cloud-download</v-icon>
       </v-list-item-icon>
-      <v-list-item-subtitle>Pressure: {{ pressureValue.state.find(s => s.type === "Report").data }} Pa</v-list-item-subtitle>
+      <v-list-item-subtitle>Pressure: {{ Number(pressureValue.state.find(s => s.type === "Report").data).toFixed(2) }} Pa</v-list-item-subtitle>
     </v-list-item>
 
     <v-slider
       v-if="!!humidityModel"
-      v-model="humidityModel"
+      :value="humidityModel"
       :min="humidityValue.number.min"
       :max="humidityValue.number.max"
       :step="humidityValue.number.step"
@@ -62,51 +56,20 @@
       append-icon="mdi-percent"
       :thumb-size="18"
       thumb-label="always"
-    >
-    <template :slot="append">
-      <div></div>
-    </template>
-    </v-slider>
-
-    <!-- <v-list class="transparent">
-      <v-list-item v-for="item in forecast" :key="item.day">
-        <v-list-item-title>{{ item.day }}</v-list-item-title>
-
-        <v-list-item-icon>
-          <v-icon>{{ item.icon }}</v-icon>
-        </v-list-item-icon>
-
-        <v-list-item-subtitle class="text-right">
-          {{ item.temp }}
-        </v-list-item-subtitle>
-      </v-list-item>
-    </v-list> -->
-
-    <!-- <v-divider></v-divider>
-
-    <v-card-actions>
-      <v-btn text>Full Report</v-btn>
-    </v-card-actions> -->
+    ></v-slider>
   </v-card>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
 import { Device, ValueEntity, StateEntity } from "@/APITypes";
-// import ValueMeter from "@/components/ValueMeter.vue";
 
 export default Vue.extend({
-  name: "DeviceCard",
+  name: "IndoorModuleDeviceCard",
 
-  components: {
-    // valueMeter
-  },
+  components: {},
 
-  data: () => ({
-    labels: ["color", "brightness"],
-    time: "",
-    forecast: []
-  }),
+  data: () => ({}),
 
   props: {
     device: {
@@ -142,7 +105,7 @@ export default Vue.extend({
         null
       );
     },
-    humidityModel: function(): Number | null {
+    humidityModel: function(): string | null {
       if (this.humidityValue !== null) {
         return Number(this.humidityValue!.state!.find(s => s.type === "Report")!.data)!.toFixed(2) || null;
       } else {

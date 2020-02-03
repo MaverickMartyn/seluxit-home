@@ -34,7 +34,7 @@ import { GridLayout, GridItem, GridItemData } from "vue-grid-layout";
 import IndoorModule from "@/components/IndoorModule.vue";
 import { Device, ValueEntity, StateEntity } from "@/APITypes";
 import axios from "axios";
-import DeviceWidgetSpecs from "@/DeviceWidgetSpecs";
+import DeviceWidgetSpecs, { IDeviceSpec } from "@/DeviceWidgetSpecs";
 import { Component } from "vue";
 
 interface IWidget extends GridItemData {
@@ -84,13 +84,17 @@ export default {
 
   methods: {
     getComponentByDevice: function(device: Device): Component {
-      return (
-        DeviceWidgetSpecs.devices.find(obj => {
+      var spec: IDeviceSpec | undefined = DeviceWidgetSpecs.devices.find(
+        obj => {
           return (
-            obj.name === device.name && obj.manufacturer === device.manufacturer
+            obj &&
+            device &&
+            obj!.name === device!.name &&
+            obj!.manufacturer === device!.manufacturer
           );
-        })!.component || IndoorModule
+        }
       );
+      return spec !== undefined ? spec!.component : IndoorModule;
     },
     getDeviceById: function(deviceId: string): Device | null {
       return this.devices.find((d: Device) => d.meta.id === deviceId) || null;
@@ -114,12 +118,7 @@ export default {
             h: 5,
             deviceId: d.meta.id,
             device: this.getDeviceById(d.meta.id),
-            component:
-              DeviceWidgetSpecs.devices.find(obj => {
-                return (
-                  obj.name === d.name && obj.manufacturer === d.manufacturer
-                );
-              })!.component || IndoorModule
+            component: this.getComponentByDevice(d) || IndoorModule
           });
           x += 3;
           if (x > 12) {
@@ -129,9 +128,7 @@ export default {
         } else {
           widgets[widgets.indexOf(wid)].device = d;
           widgets[widgets.indexOf(wid)].component =
-            DeviceWidgetSpecs.devices.find(obj => {
-              return obj!.name === d.name && obj!.manufacturer === d.manufacturer;
-            })!.component || IndoorModule;
+            this.getComponentByDevice(d) || IndoorModule;
         }
       });
       this.widgets = widgets;
