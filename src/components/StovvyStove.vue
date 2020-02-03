@@ -73,35 +73,34 @@
       </v-row> -->
     </v-card-text>
 
-    <v-slider
-      v-if="!!desiTemperatureValue"
-      v-model="desiTemperatureState.data"
-      :min="desiTemperatureValue.number.min"
-      :max="desiTemperatureValue.number.max"
-      :step="desiTemperatureValue.number.step"
-      label="Desired Temperature"
-      class="mx-4"
-      :thumb-size="22"
-      thumb-label="always"
-      @change="updateState($event, desiTemperatureValue)"
-    >
-      <template v-slot:append>&deg;C</template>
-    </v-slider>
-
-    <v-slider
-      v-if="!!heatLevelValue"
-      v-model="heatLevelValue.state.find(s => s.type === 'Control').data"
-      :min="heatLevelValue.number.min"
-      :max="heatLevelValue.number.max"
-      :step="heatLevelValue.number.step"
-      label="Heat level"
-      class="mx-4"
-      ticks
-      append-icon="mdi-percent"
-      :thumb-size="22"
-      thumb-label="always"
-      @change="updateState($event, heatLevelValue)"
-    ></v-slider>
+    <v-flex class="d-flex flex-row justify-space-evenly mx-4 flex-wrap">
+      <v-flex class="d-flex flex-column justify-center">
+        <p class="text-center">Desired Temperature</p>
+        <knob-control
+          v-if="!!desiTemperatureValue"
+          v-model="desiTemperatureState.data"
+          :min="desiTemperatureValue.number.min"
+          :max="desiTemperatureValue.number.max"
+          :stepSize="desiTemperatureValue.number.step"
+          :valueDisplayFunction="toDegreesString"
+          class="mx-auto"
+          @change="updateState($event, desiTemperatureValue)"
+        ></knob-control>
+      </v-flex>
+      <v-flex class="d-flex flex-column justify-center">
+        <p class="text-center">Heat level</p>
+        <knob-control
+          v-if="!!heatLevelValue"
+          v-model="heatLevelValue.state.find(s => s.type === 'Control').data"
+          :min="heatLevelValue.number.min"
+          :max="heatLevelValue.number.max"
+          :stepSize="heatLevelValue.number.step"
+          :valueDisplayFunction="toPercentageString"
+          class="mx-auto"
+          @change="updateState($event, heatLevelValue)"
+        ></knob-control>
+      </v-flex>
+    </v-flex>
   </v-card>
 </template>
 
@@ -109,11 +108,14 @@
 import Vue from "vue";
 import { Device, ValueEntity, StateEntity } from "@/APITypes";
 import axios from "axios";
+import KnobControl from "vue-knob-control";
 
 export default Vue.extend({
   name: "StovvyStoveDeviceCard",
 
-  components: {},
+  components: {
+    KnobControl
+  },
 
   data: () => ({}),
 
@@ -169,6 +171,12 @@ export default Vue.extend({
   },
 
   methods: {
+    toPercentageString(val: string): string {
+      return val + "%";
+    },
+    toDegreesString(val: string): string {
+      return val + "°";
+    },
     /**
      * Returns the state of type "Control" belonging to a given value, if one exists.
      *
